@@ -249,8 +249,9 @@ func (d *Yun139) getLink(contentId string) (string, error) {
 
 func (d *Yun139) getm3u8Link(contentId string) (string, error) {
 	data := base.Json{
-		"appName":   "",
 		"contentID": contentId,
+		"path":"",
+		"entryShareCatalogID":"",
 		"commonAccountInfo": base.Json{
 			"account":     d.Account,
 			"accountType": 1,
