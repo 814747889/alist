@@ -93,7 +93,7 @@ func (d *Yun139) Linkm3u8(ctx context.Context, file model.Obj, args model.LinkAr
 	var err error
 	switch d.Addition.Type {
 	case MetaFamily:
-		url, err = d.getLinkm3u8(file.GetID())
+		url, err = d.getm3u8Link(file.GetID())
 	default:
 		return nil, errs.NotImplement
 	}
