@@ -247,6 +247,23 @@ func (d *Yun139) getLink(contentId string) (string, error) {
 	return jsoniter.Get(res, "data", "downloadURL").ToString(), nil
 }
 
+func (d *Yun139) getm3u8Link(contentId string) (string, error) {
+	data := base.Json{
+		"appName":   "",
+		"contentID": contentId,
+		"commonAccountInfo": base.Json{
+			"account":     d.Account,
+			"accountType": 1,
+		},
+	}
+	res, err := d.post("/orchestration/personalCloud/content/v1.0/getContentInfo",
+		data, nil)
+	if err != nil {
+		return "", err
+	}
+	return jsoniter.Get(res, "data", "downloadURL","contentInfo","presentURL").ToString(), nil
+}
+
 func unicode(str string) string {
 	textQuoted := strconv.QuoteToASCII(str)
 	textUnquoted := textQuoted[1 : len(textQuoted)-1]
