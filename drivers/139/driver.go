@@ -88,6 +88,20 @@ func (d *Yun139) List(ctx context.Context, dir model.Obj, args model.ListArgs) (
 	}
 }
 
+func (d *Yun139) Linkm3u8(ctx context.Context, file model.Obj, args model.LinkArgs) (*model.Link, error) {
+	var url string
+	var err error
+	switch d.Addition.Type {
+	case MetaFamily:
+		url, err = d.getLinkm3u8(file.GetID())
+	default:
+		return nil, errs.NotImplement
+	}
+	if err != nil {
+		return nil, err
+	}
+	return &model.Link{URL: url}, nil
+}
 func (d *Yun139) Link(ctx context.Context, file model.Obj, args model.LinkArgs) (*model.Link, error) {
 	var url string
 	var err error
@@ -106,7 +120,6 @@ func (d *Yun139) Link(ctx context.Context, file model.Obj, args model.LinkArgs) 
 	}
 	return &model.Link{URL: url}, nil
 }
-
 func (d *Yun139) MakeDir(ctx context.Context, parentDir model.Obj, dirName string) error {
 	var err error
 	switch d.Addition.Type {
